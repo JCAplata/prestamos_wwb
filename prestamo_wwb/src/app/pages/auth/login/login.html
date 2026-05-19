@@ -1,1 +1,62 @@
-<p>login works!</p>
+<div class="container">
+
+  <div class="card">
+
+    <h1>
+      {{ esRegistro ? 'Registro' : 'Login' }}
+    </h1>
+
+    <input
+      *ngIf="esRegistro"
+      type="text"
+      placeholder="Nombre"
+      [(ngModel)]="nombre"
+    >
+
+    <input
+      *ngIf="esRegistro"
+      type="text"
+      placeholder="Cargo"
+      [(ngModel)]="cargo"
+    >
+
+    <input
+      type="email"
+      placeholder="Correo"
+      [(ngModel)]="correo"
+    >
+
+    <input
+      type="password"
+      placeholder="Contraseña"
+      [(ngModel)]="password"
+    >
+
+    <button
+      *ngIf="!esRegistro"
+      (click)="login()"
+    >
+      Ingresar
+    </button>
+
+    <button
+      *ngIf="esRegistro"
+      (click)="registrar()"
+    >
+      Registrarse
+    </button>
+
+    <p
+      class="toggle"
+      (click)="esRegistro = !esRegistro"
+    >
+      {{
+        esRegistro
+          ? '¿Ya tienes cuenta? Inicia sesión'
+          : '¿No tienes cuenta? Regístrate'
+      }}
+    </p>
+
+  </div>
+
+</div>

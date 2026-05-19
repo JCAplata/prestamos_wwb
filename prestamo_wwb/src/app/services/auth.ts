@@ -1,8 +1,66 @@
 import { Injectable } from '@angular/core';
 
+import { Usuario } from '../core/models/usuario.model';
+import { USUARIOS } from '../data/mock-usuarios';
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class Auth {
-  
+export class AuthService {
+
+  private usuarios: Usuario[] = [...USUARIOS];
+
+  login(
+    correo: string,
+    password: string
+  ): Usuario | null {
+
+    const usuario = this.usuarios.find(
+      user =>
+        user.correo === correo &&
+        user.password === password
+    );
+
+    if (usuario) {
+
+      localStorage.setItem(
+        'usuario',
+        JSON.stringify(usuario)
+      );
+
+      return usuario;
+    }
+
+    return null;
+  }
+
+  registrar(usuario: Usuario): boolean {
+
+    const existe = this.usuarios.find(
+      user => user.correo === usuario.correo
+    );
+
+    if (existe) {
+      return false;
+    }
+
+    this.usuarios.push(usuario);
+
+    return true;
+  }
+
+  obtenerUsuarioSesion(): Usuario | null {
+
+    const usuario = localStorage.getItem('usuario');
+
+    if (!usuario) {
+      return null;
+    }
+
+    return JSON.parse(usuario);
+  }
+
+  logout(): void {
+    localStorage.removeItem('usuario');
+  }
 }
