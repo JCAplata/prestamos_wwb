@@ -1,1 +1,27 @@
-<p>lista-prestamos works!</p>
+<h1>Mis préstamos</h1>
+
+<div
+  class="card"
+  *ngFor="
+    let prestamo
+    of prestamos
+  "
+>
+
+  <img
+    [src]="
+    prestamo.equipo.imagen
+    "
+  >
+
+  <h3>
+    {{
+    prestamo.equipo.nombre
+    }}
+  </h3>
+
+  <p>
+    {{ prestamo.estado }}
+  </p>
+
+</div>
