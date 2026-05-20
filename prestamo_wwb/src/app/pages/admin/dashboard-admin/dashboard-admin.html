@@ -1,1 +1,258 @@
-<p>dashboard-admin works!</p>
+<nav class="navbar">
+
+  <div class="logo">
+    Panel Administrador
+  </div>
+
+  <div class="menu">
+
+    <button
+      (click)="vista = 'agregar'"
+    >
+      Agregar productos
+    </button>
+
+    <button
+      (click)="vista = 'estados'"
+    >
+      Estados productos
+    </button>
+
+    <button
+      (click)="vista = 'historial'"
+    >
+      Historial préstamos
+    </button>
+
+    <button
+      (click)="logout()"
+    >
+      Cerrar sesión
+    </button>
+
+  </div>
+
+</nav>
+
+<!-- AGREGAR PRODUCTOS -->
+
+<section
+  *ngIf="vista === 'agregar'"
+  class="section"
+>
+
+  <h2>
+
+    {{
+      editando
+      ? 'Editar equipo'
+      : 'Agregar equipo'
+    }}
+
+  </h2>
+
+  <div class="formulario">
+
+    <input
+      [(ngModel)]="
+      nuevoEquipo.nombre"
+      placeholder="Nombre"
+    >
+
+    <select
+      [(ngModel)]="
+      nuevoEquipo.categoria"
+    >
+
+      <option
+        *ngFor="
+        let categoria
+        of categorias
+        "
+        [value]="categoria"
+      >
+        {{ categoria }}
+      </option>
+
+    </select>
+
+    <select
+      [(ngModel)]="
+      nuevoEquipo.marca"
+    >
+
+      <option
+        *ngFor="
+        let marca
+        of marcas
+        "
+        [value]="marca"
+      >
+        {{ marca }}
+      </option>
+
+    </select>
+
+    <input
+      [(ngModel)]="
+      nuevoEquipo.imagen"
+      placeholder="URL imagen"
+    >
+
+    <button
+      (click)="agregarEquipo()"
+    >
+
+      {{
+        editando
+        ? 'Guardar cambios'
+        : 'Agregar equipo'
+      }}
+
+    </button>
+
+  </div>
+
+</section>
+
+<!-- ESTADOS PRODUCTOS -->
+
+<section
+  *ngIf="vista === 'estados'"
+  class="cards-container"
+>
+
+  <div
+    class="card"
+    *ngFor="
+      let equipo of equipos
+    "
+  >
+
+    <button
+      class="delete-btn"
+      (click)="
+      eliminarEquipo(
+      equipo
+      )"
+    >
+      🗑
+    </button>
+
+    <img
+      [src]="equipo.imagen"
+    >
+
+    <div class="contenido">
+
+      <h3>
+        {{ equipo.nombre }}
+      </h3>
+
+      <p>
+        {{ equipo.estado }}
+      </p>
+
+      <select
+        [(ngModel)]="
+        equipo.estado"
+      >
+
+        <option value="DISPONIBLE">
+          DISPONIBLE
+        </option>
+
+        <option value="MANTENIMIENTO">
+          MANTENIMIENTO
+        </option>
+
+        <option value="FUERA_SERVICIO">
+          FUERA DE SERVICIO
+        </option>
+
+      </select>
+
+      <button
+        (click)="
+        editarEquipo(
+        equipo
+        )"
+      >
+        Editar
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- HISTORIAL -->
+
+<section
+  *ngIf="vista === 'historial'"
+  class="cards-container"
+>
+
+  <div
+    class="card"
+    *ngFor="
+      let prestamo
+      of prestamos
+    "
+  >
+
+    <div class="contenido">
+
+      <h3>
+        {{
+        prestamo.equipo.nombre
+        }}
+      </h3>
+
+      <p>
+        Persona:
+        {{
+        prestamo.nombrePersona
+        }}
+      </p>
+
+      <p>
+        Estado:
+        {{
+        prestamo.estado
+        }}
+      </p>
+
+      <p>
+        Fecha inicio:
+        {{
+        prestamo.fechaInicio
+        }}
+      </p>
+
+      <p>
+        Fecha fin:
+        {{
+        prestamo.fechaFin
+        }}
+      </p>
+
+      <button
+        *ngIf="
+        prestamo.estado
+        !== 'DEVUELTO'
+        "
+        (click)="
+        devolver(
+        prestamo.id
+        )"
+      >
+        Marcar devolución
+      </button>
+
+    </div>
+
+  </div>
+
+</section>

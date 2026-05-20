@@ -3,15 +3,27 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { EQUIPOS } from '../../../data/mock-equipos';
-import { PrestamoService } from '../../../services/prestamo';
+import {
+  Router,
+  RouterLink
+} from '@angular/router';
+
+import { EQUIPOS }
+from '../../../data/mock-equipos';
+
+import { PrestamoService }
+from '../../../services/prestamo';
+
+import { AuthService }
+from '../../../services/auth';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
@@ -39,7 +51,9 @@ export class Home {
   ];
 
   categoriaSeleccionada = '';
+
   marcaSeleccionada = '';
+
   busqueda = '';
 
   equipos = EQUIPOS;
@@ -49,13 +63,23 @@ export class Home {
   equipoSeleccionado: any = null;
 
   nombrePersona = '';
+
   cargo = '';
 
   fechaInicio = '';
+
   fechaFin = '';
 
   constructor(
-    private prestamoService: PrestamoService
+
+    private prestamoService:
+    PrestamoService,
+
+    private authService:
+    AuthService,
+
+    private router: Router
+
   ) {}
 
   get equiposFiltrados() {
@@ -63,6 +87,7 @@ export class Home {
     return this.equipos.filter(equipo => {
 
       const coincideBusqueda =
+
         equipo.nombre
           .toLowerCase()
           .includes(
@@ -70,20 +95,27 @@ export class Home {
           );
 
       const coincideCategoria =
+
         !this.categoriaSeleccionada ||
+
         equipo.categoria ===
-          this.categoriaSeleccionada;
+        this.categoriaSeleccionada;
 
       const coincideMarca =
+
         !this.marcaSeleccionada ||
+
         equipo.marca ===
-          this.marcaSeleccionada;
+        this.marcaSeleccionada;
 
       return (
+
         coincideBusqueda &&
         coincideCategoria &&
         coincideMarca
+
       );
+
     });
   }
 
@@ -101,18 +133,23 @@ export class Home {
     marca: string
   ): void {
 
-    this.marcaSeleccionada = marca;
+    this.marcaSeleccionada =
+      marca;
   }
 
-  abrirModal(equipo: any): void {
+  abrirModal(
+    equipo: any
+  ): void {
 
     if (
       equipo.estado !==
       'DISPONIBLE'
     ) {
+
       alert(
         'Equipo no disponible'
       );
+
       return;
     }
 
@@ -138,21 +175,28 @@ export class Home {
       new Date(this.fechaFin);
 
     const diferencia =
-      (fin.getTime() -
-        inicio.getTime()) /
-      (1000 * 60 * 60 * 24);
+
+      (
+        fin.getTime() -
+        inicio.getTime()
+      ) /
+
+      (
+        1000 * 60 * 60 * 24
+      );
 
     if (diferencia > 14) {
+
       alert(
         'El préstamo no puede superar 14 días'
       );
+
       return;
     }
 
-    const confirmar =
-      confirm(
-        '¿Está seguro de solicitar este préstamo?'
-      );
+    const confirmar = confirm(
+      '¿Está seguro de solicitar este préstamo?'
+    );
 
     if (!confirmar) {
       return;
@@ -188,5 +232,12 @@ export class Home {
     );
 
     this.modalAbierto = false;
+  }
+
+  logout(): void {
+
+    this.authService.logout();
+
+    this.router.navigate(['/']);
   }
 }

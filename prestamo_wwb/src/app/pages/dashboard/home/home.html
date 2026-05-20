@@ -1,6 +1,6 @@
 <nav class="navbar">
 
-  <div>
+  <div class="usuario">
     {{ usuario.nombre }}
   </div>
 
@@ -15,6 +15,17 @@
 
     <button routerLink="/mis-prestamos">
       Mis préstamos
+    </button>
+
+    <button
+      *ngIf="usuario.rol === 'ADMIN'"
+      routerLink="/admin"
+    >
+      Administrador
+    </button>
+
+    <button (click)="logout()">
+      Cerrar sesión
     </button>
 
   </div>
@@ -88,8 +99,7 @@
     </h2>
 
     <input
-      [(ngModel)]="
-      nombrePersona"
+      [(ngModel)]="nombrePersona"
       placeholder="Nombre"
     >
 
@@ -105,8 +115,7 @@
     <input
       type="date"
       [min]="fechaMinima"
-      [(ngModel)]="
-      fechaInicio"
+      [(ngModel)]="fechaInicio"
     >
 
     <label>
@@ -116,14 +125,11 @@
     <input
       type="date"
       [min]="fechaInicio"
-      [(ngModel)]="
-      fechaFin"
+      [(ngModel)]="fechaFin"
     >
 
     <button
-      (click)="
-      solicitarPrestamo()
-      "
+      (click)="solicitarPrestamo()"
     >
       Confirmar
     </button>

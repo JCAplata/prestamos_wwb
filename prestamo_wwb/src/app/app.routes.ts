@@ -9,6 +9,9 @@ from './pages/dashboard/home/home';
 import { ListaPrestamos }
 from './pages/mis-prestamos/lista-prestamos/lista-prestamos';
 
+import { DashboardAdmin }
+from './pages/admin/dashboard-admin/dashboard-admin';
+
 export const routes: Routes = [
 
   {
@@ -23,7 +26,12 @@ export const routes: Routes = [
 
   {
     path: 'mis-prestamos',
-    component:
-      ListaPrestamos
+    component: ListaPrestamos
+  },
+
+  {
+    path: 'admin',
+    component: DashboardAdmin
   }
+
 ];
