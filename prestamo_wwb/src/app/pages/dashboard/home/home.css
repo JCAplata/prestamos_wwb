@@ -149,3 +149,91 @@ body {
 .modal-card input {
   padding: 12px;
 }
+.cerrar-filtro {
+
+  background: #ef4444 !important;
+
+  color: white;
+
+  font-weight: bold;
+}
+
+.botones-modal {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.btn-volver {
+
+  background: #6b7280;
+}
+
+.btn-confirmar {
+
+  background: #2563eb;
+}
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .navbar {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .categorias {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-wrap: wrap;
+  }
+
+  .categorias button {
+
+    flex: 1;
+  }
+
+  .marcas {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+  }
+
+  .marcas button {
+
+    flex: 1;
+  }
+
+  .equipos {
+
+    grid-template-columns: 1fr;
+  }
+
+  .modal-card {
+
+    width: 95%;
+  }
+
+  .botones-modal {
+
+    flex-direction: column;
+  }
+
+  .botones-modal button {
+
+    width: 100%;
+  }
+}

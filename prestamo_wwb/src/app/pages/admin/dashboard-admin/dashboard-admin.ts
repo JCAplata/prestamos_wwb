@@ -97,6 +97,18 @@ export class DashboardAdmin {
 
     if (this.editando) {
 
+      this.equipoEditando.nombre =
+        this.nuevoEquipo.nombre;
+
+      this.equipoEditando.categoria =
+        this.nuevoEquipo.categoria;
+
+      this.equipoEditando.marca =
+        this.nuevoEquipo.marca;
+
+      this.equipoEditando.imagen =
+        this.nuevoEquipo.imagen;
+
       this.editando = false;
 
       this.equipoEditando = null;
@@ -104,6 +116,8 @@ export class DashboardAdmin {
       alert(
         'Equipo actualizado'
       );
+
+      this.limpiarFormulario();
 
       return;
     }
@@ -176,6 +190,31 @@ export class DashboardAdmin {
 
     alert(
       'Equipo eliminado'
+    );
+  }
+
+  seleccionarImagen(
+    event: any
+  ): void {
+
+    const archivo =
+      event.target.files[0];
+
+    if (!archivo) {
+      return;
+    }
+
+    const reader =
+      new FileReader();
+
+    reader.onload = () => {
+
+      this.nuevoEquipo.imagen =
+        reader.result as string;
+    };
+
+    reader.readAsDataURL(
+      archivo
     );
   }
 

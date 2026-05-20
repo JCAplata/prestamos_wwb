@@ -1,27 +1,100 @@
-<h1>Mis préstamos</h1>
+<nav class="navbar">
 
-<div
-  class="card"
-  *ngFor="
-    let prestamo
-    of prestamos
-  "
->
+  <div class="usuario">
+    {{ usuario.nombre }}
+  </div>
 
-  <img
-    [src]="
-    prestamo.equipo.imagen
-    "
-  >
+  <div class="categorias">
 
-  <h3>
-    {{
-    prestamo.equipo.nombre
-    }}
-  </h3>
+    <button routerLink="/home">
+      Inicio
+    </button>
 
-  <p>
-    {{ prestamo.estado }}
-  </p>
+    <button class="activo">
+      Mis préstamos
+    </button>
+
+    <button
+      *ngIf="usuario.rol === 'ADMIN'"
+      routerLink="/admin"
+    >
+      Administrador
+    </button>
+
+    <button (click)="logout()">
+      Cerrar sesión
+    </button>
+
+  </div>
+
+</nav>
+
+<div class="contenedor">
+
+  <div class="header">
+
+    <h1>
+      Mis préstamos
+    </h1>
+
+    <button
+      class="btn-limpiar"
+      (click)="limpiarHistorial()"
+    >
+      🗑 Limpiar historial
+    </button>
+
+  </div>
+
+  <div class="cards">
+
+    <div
+      class="card"
+      *ngFor="
+        let prestamo
+        of prestamos
+      "
+    >
+
+      <img
+        [src]="
+        prestamo.equipo.imagen
+        "
+      >
+
+      <div class="contenido">
+
+        <h2>
+          {{
+          prestamo.equipo.nombre
+          }}
+        </h2>
+
+        <p>
+          Estado:
+          {{
+          prestamo.estado
+          }}
+        </p>
+
+        <p>
+          Inicio:
+          {{
+          prestamo.fechaInicio
+          }}
+        </p>
+
+        <p>
+          Fin:
+          {{
+          prestamo.fechaFin
+          }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>

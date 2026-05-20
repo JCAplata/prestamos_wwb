@@ -94,9 +94,11 @@
     </select>
 
     <input
-      [(ngModel)]="
-      nuevoEquipo.imagen"
-      placeholder="URL imagen"
+      type="file"
+      accept="image/*"
+      (change)="
+      seleccionarImagen($event)
+      "
     >
 
     <button

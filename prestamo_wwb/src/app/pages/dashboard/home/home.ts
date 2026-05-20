@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 import {
@@ -11,21 +12,27 @@ import {
 import { EQUIPOS }
 from '../../../data/mock-equipos';
 
-import { PrestamoService }
-from '../../../services/prestamo';
+import {
+  PrestamoService
+} from '../../../services/prestamo';
 
-import { AuthService }
-from '../../../services/auth';
+import {
+  AuthService
+} from '../../../services/auth';
 
 @Component({
   selector: 'app-home',
+
   standalone: true,
+
   imports: [
     CommonModule,
     FormsModule,
     RouterLink
   ],
+
   templateUrl: './home.html',
+
   styleUrl: './home.css'
 })
 export class Home {
@@ -62,9 +69,11 @@ export class Home {
 
   equipoSeleccionado: any = null;
 
-  nombrePersona = '';
+  nombrePersona =
+    this.usuario.nombre || '';
 
-  cargo = '';
+  cargo =
+    this.usuario.cargo || '';
 
   fechaInicio = '';
 
@@ -137,6 +146,11 @@ export class Home {
       marca;
   }
 
+  limpiarMarca(): void {
+
+    this.marcaSeleccionada = '';
+  }
+
   abrirModal(
     equipo: any
   ): void {
@@ -157,6 +171,11 @@ export class Home {
       equipo;
 
     this.modalAbierto = true;
+  }
+
+  cerrarModal(): void {
+
+    this.modalAbierto = false;
   }
 
   get fechaMinima(): string {
